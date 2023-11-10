@@ -32,18 +32,18 @@ export class InjectionContext {
     return this.di[name];
   }
 
-  async injectLater(target: any, name: string) {
+  async injectLater(target: any, dep: string, field: string) {
     let attempts = 0;
-    while (!this.has(name) && attempts < WAIT_TIME) {
+    while (!this.has(dep) && attempts < WAIT_TIME) {
       await setTimeout(30);
       attempts++;
     }
-    target[name] = await this.get(name);
+    target[field] = await this.get(dep);
   }
 
-  inject(target: any, name: string) {
+  inject(target: any, dep: string, field: string) {
     this.stack.push(() => {
-      let pi = this.injectLater(target, name);
+      let pi = this.injectLater(target, dep, field);
       return pi;
     });
   }
@@ -63,13 +63,13 @@ export class InjectionContext {
 
 export function Inject(name?: string) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    InjectionContext.getInstance().inject(target, name || propertyKey);
+    InjectionContext.getInstance().inject(target, name || propertyKey, propertyKey);
   } as any;
 }
 
 export function InjectParam(name: string) {
   return function (target: Object, propertyKey: string | symbol, parameterIndex: number) {
-    InjectionContext.getInstance().inject(target, name);
+    InjectionContext.getInstance().inject(target, name, propertyKey as string);
   } as any;
 }
 

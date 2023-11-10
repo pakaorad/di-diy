@@ -12,8 +12,8 @@ Injection via decorators gets done at the process start, but you can also inject
 
 Awaiting the async method waitForInjection makes sure that all of your dependencies have been accounted for and that your program can start working.
 
-
-TODO: fix build-release
+TODO: fix multiple folders + TS issues
 TODO: make example work
-TODO: additional example
+TODO: additional examples
+
 TODO: rework to have additional scopes other than singleton
