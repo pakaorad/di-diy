@@ -2,6 +2,10 @@
 
 Make coding easier by having your classes define their own dependencies and make development and testing easier by having a central place where you can change service implementations.
 
+# Release
+
+Currently usable from npm as package [di-diy](https://www.npmjs.com/package/di-diy), but not ready for production use.
+
 # How to use
 
 Add the `@Injectable` decorator to any class that you want to be a node in the dependency graph. Add `@Inject` to every class field that you want to have a dependency injected into. 
